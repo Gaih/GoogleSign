@@ -228,6 +228,7 @@ public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabB
 
         }
     }
+    //TODO
     protected void doPlatformLogin(final String account, final String reserve1,
                                    final String reserve2) {
         BaseActivity.sendUserInfo2Server(QYConstant.loginUrl, account,
