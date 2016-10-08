@@ -31,5 +31,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile files('libs/yile_common3.jar')
     compile 'com.google.android.gms:play-services-auth:9.0.0'
-
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
 }
