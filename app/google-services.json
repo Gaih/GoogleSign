@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1043987211091",
+    "project_id": "project--7339122567297482518"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1043987211091:android:c0750e9915131a00",
+        "android_client_info": {
+          "package_name": "com.yilegame.googlesign"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1043987211091-pb835vj7nud444p2qd7vmkpbqejc5tpl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.yilegame.googlesign",
+            "certificate_hash": "A4718818EF316A55321D1A4AE777E7A6D2498313"
+          }
+        },
+        {
+          "client_id": "1043987211091-pprb2vs6pa01udeea73g1dq3lkuoh158.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIumoxvSWYdvDiwDTGbMHHe_hdqOpQEig"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
