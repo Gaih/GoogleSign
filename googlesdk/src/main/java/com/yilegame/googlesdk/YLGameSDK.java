@@ -1,20 +1,22 @@
 package com.yilegame.googlesdk;
 
 import android.app.Activity;
-
-
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
-import android.support.v7.app.AppCompatActivity;
 
-
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -23,6 +25,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.yilegame.googlesdk.util.HttpUtils;
 import com.yilegame.googlesdk.util.IabBroadcastReceiver;
 import com.yilegame.googlesdk.util.IabHelper;
@@ -39,7 +42,6 @@ import com.yilegame.sdk.utils.AES;
 import com.yilegame.sdk.utils.Base64;
 import com.yilegame.sdk.utils.HttpUtil;
 import com.yilegame.sdk.utils.LogUtil;
-
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -82,6 +84,7 @@ public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabB
     // Provides purchase notification while this app is running
     private ProgressDialog mProgressDialog;
     private GoogleApiClient mGoogleApiClient;
+    private CallbackManager callBackManager;
 
     private YLGameSDK() {
 
@@ -95,7 +98,7 @@ public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabB
         return YLGameSDK;
     }
 
-    public void init(Activity activity, Handler handler,
+    public void init(final Activity activity, Handler handler,
                      final boolean testMode, String gameId,
                      String channelId, String talkingDataId, ArrayList<String> productIds) {
         sdkInit(activity, handler, testMode, gameId, channelId);
@@ -109,14 +112,39 @@ public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabB
                     @Override
                     public void doChannelInit() {// 渠道初始化方法
                         doActivate();
-                        //TODO
-                        initLogin();
-
+                        //Google初始化
+                        initGoogleLogin();
+                        //Facebook初始化
+                        initFacebookLogin();
                     }
                 });
     }
 
-    private void initLogin() {
+    private void initFacebookLogin() {
+
+        callBackManager = CallbackManager.Factory.create();
+        AppEventsLogger.activateApp(activity);
+        LoginManager.getInstance().registerCallback(callBackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Toast.makeText(activity,"管理器登陆成功,数据token"+loginResult.getAccessToken().getToken(),Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancel() {
+                Toast.makeText(activity,"管理器登陆取消",Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Toast.makeText(YLGameSDK.this,"管理器登录失败",Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
+    private void initGoogleLogin() {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(activity.getResources().getString(R.string.server_client_id))
                 .requestEmail()
@@ -219,18 +247,21 @@ public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabB
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
-            doPlatformLogin(null, acct.getIdToken(),null);
+
+            // TODO: 2016/10/9 doPlatformLogin
+//            doPlatformLogin(null, acct.getIdToken(),null);
             Log.d(TAG,acct.getIdToken());
-            Toast.makeText(activity,"登录成功:"+acct.getIdToken(),Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity,"登录成功:"+acct.getDisplayName(),Toast.LENGTH_SHORT).show();
+
         } else {
             // Signed out, show unauthenticated UI.
             Toast.makeText(activity,"登录失败",Toast.LENGTH_SHORT).show();
 
         }
     }
-    //TODO
     protected void doPlatformLogin(final String account, final String reserve1,
                                    final String reserve2) {
+        Log.d("gaiiiiii",QYConstant.loginUrl);
         BaseActivity.sendUserInfo2Server(QYConstant.loginUrl, account,
                 reserve1, reserve2, new YLGameCallback() {
                     @Override
@@ -263,6 +294,7 @@ public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabB
     }
     public  void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        callBackManager.onActivityResult(requestCode,resultCode,data);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInResult(result);
@@ -577,4 +609,29 @@ public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabB
     public  void onPause(Activity activity) {
         super.onPause(activity);
     }
+
+
+    public void logout() {
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+                        // [START_EXCLUDE]
+                        Toast.makeText(activity,"退出",Toast.LENGTH_SHORT).show();
+                        // [END_EXCLUDE]
+                    }
+                });
+    }
+    public void dismiss() {
+        Auth.GoogleSignInApi.revokeAccess(mGoogleApiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+                        // [START_EXCLUDE]
+                        Toast.makeText(activity,"断开连接",Toast.LENGTH_SHORT).show();
+                        // [END_EXCLUDE]
+                    }
+                });
+    }
+
 }

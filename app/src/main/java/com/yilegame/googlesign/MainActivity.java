@@ -7,12 +7,13 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.FacebookSdk;
 import com.yilegame.sdk.common.YLGameCode;
 
 import java.util.ArrayList;
-
 
 import static com.yilegame.googlesdk.YLGameSDK.YLGameSDK;
 
@@ -69,9 +70,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    private TextView mStatus;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //facebooksdk初始化
+        FacebookSdk.sdkInitialize(getApplicationContext());
+
         setContentView(R.layout.activity_main);
         ArrayList<String> arrayList=new ArrayList<String>();
         arrayList.add("lfantasy002200");
@@ -81,15 +86,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         arrayList.add("lfantasy055000");
         arrayList.add("lfantasy110000");
         Handler handler=new BwHandler();
-        YLGameSDK.getInstance().init(this, handler,false, "2101", "2","BB89193D948C8901FC615D92D630A982", arrayList);
+        YLGameSDK.getInstance().init(this, handler,true, "2101", "2","BB89193D948C8901FC615D92D630A982", arrayList);
 
-        findViewById(R.id.sign_in_button).setOnClickListener(this);
-//        findViewById(R.id.google_logout).setOnClickListener(this);
-//        findViewById(R.id.google_dismiss).setOnClickListener(this);
-//        findViewById(R.id.google_pay).setOnClickListener(this);
-//
-//        findViewById(R.id.facebook_login).setOnClickListener(this);
-//        findViewById(R.id.facebook_logout).setOnClickListener(this);
+        mStatus = (TextView) findViewById(R.id.status);
+        findViewById(R.id.googleSign).setOnClickListener(this);
+        findViewById(R.id.googlePay).setOnClickListener(this);
+        findViewById(R.id.googleDismiss).setOnClickListener(this);
+        findViewById(R.id.googleExit).setOnClickListener(this);
+//        LoginButton loginButton = (LoginButton) findViewById(R.id.facebook_sign);
+//        loginButton.setReadPermissions("email");
+
     }
 
 
@@ -119,25 +125,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.sign_in_button:
+            case R.id.googleSign:
                 YLGameSDK.getInstance().signIn();
                 break;
-//            case R.id.google_logout:
-//
-//                break;
-//            case R.id.google_dismiss:
-//
-//                break;
-//            case R.id.google_pay:
-//
-//
-//                break;
-//            case R.id.facebook_login:
-//
-//                break;
-//            case R.id.facebook_logout:
-//
-//                break;
+            case R.id.facebook_sign:
+
+                break;
+            case R.id.googlePay:
+
+                break;
+            case R.id.googleExit:
+                YLGameSDK.getInstance().logout();
+                break;
+            case R.id.googleDismiss:
+                YLGameSDK.getInstance().dismiss();
+                break;
         }
     }
 

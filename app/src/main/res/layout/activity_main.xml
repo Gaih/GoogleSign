@@ -4,26 +4,54 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
     tools:context="com.yilegame.googlesign.MainActivity">
 
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/facebook_sign"
+        android:layout_gravity="center"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content" >
+    </com.facebook.login.widget.LoginButton>
+
     <com.google.android.gms.common.SignInButton
-        android:id="@+id/sign_in_button"
-        android:layout_width="wrap_content"
+        android:paddingTop="10dp"
+        android:id="@+id/googleSign"
+        android:layout_gravity="center"
+        android:layout_width="200dp"
         android:layout_height="wrap_content">
     </com.google.android.gms.common.SignInButton>
+    <TextView
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:id="@+id/status"
+        android:layout_gravity="center"
+        android:textSize="30dp"
+        android:text="GoogleSignIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
     <Button
-        android:text="退出"
-        android:id="@+id/sign_out_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_gravity="center"
+        android:id="@+id/googlePay"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="支付" />
     <Button
-        android:text="断开连接"
-        android:id="@+id/disconnect_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_gravity="center"
+        android:id="@+id/googleExit"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="退出" />
+
+    <Button
+        android:layout_gravity="center"
+        android:id="@+id/googleDismiss"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="断开连接" />
 </LinearLayout>
