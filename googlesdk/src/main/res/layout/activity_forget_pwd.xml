@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:paddingTop="10dp"
+    android:orientation="vertical"
+   >
+	<include layout="@layout/head"/>
+    <com.yilegame.yile.wight.AccountEditText
+	       android:id="@+id/Aet_question"
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:ispwd="false"
+        app:summary="问题" >
+    </com.yilegame.yile.wight.AccountEditText>
+
+    <com.yilegame.yile.wight.AccountEditText
+	       android:id="@+id/Aet_answer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:ispwd="false"
+        app:summary="答案" >
+    </com.yilegame.yile.wight.AccountEditText>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/tv_submit"
+        style="@style/btn_style2"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/btn_textsize"
+            android:text="提交"
+            android:background="@drawable/login_bg_green" />
+            <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+              <TextView
+                  android:id="@+id/tv_cancle"
+                   style="@style/btn_style2"
+            android:textColor="@color/textgreen"
+            android:textSize="@dimen/btn_textsize"
+            android:gravity="center"
+            android:text="取消"
+            android:background="@drawable/login_bg_white" />
+    </LinearLayout>
+</LinearLayout>

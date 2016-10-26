@@ -3,6 +3,7 @@ package com.yilegame.googlesdk;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Handler;
@@ -34,6 +35,9 @@ import com.yilegame.googlesdk.util.Inventory;
 import com.yilegame.googlesdk.util.MD5;
 import com.yilegame.googlesdk.util.Purchase;
 import com.yilegame.googlesdk.util.PurchaseDao;
+import com.yilegame.http.constant.UserInfos;
+import com.yilegame.http.uti.RequestUrl;
+import com.yilegame.http.uti.TalkingData;
 import com.yilegame.sdk.common.BaseActivity;
 import com.yilegame.sdk.common.YLMessage;
 import com.yilegame.sdk.protocol.ChannelInitMethod;
@@ -42,6 +46,9 @@ import com.yilegame.sdk.utils.AES;
 import com.yilegame.sdk.utils.Base64;
 import com.yilegame.sdk.utils.HttpUtil;
 import com.yilegame.sdk.utils.LogUtil;
+import com.yilegame.yile.engine.QYSDKManager;
+import com.yilegame.yile.engine.RequestService;
+import com.yilegame.yile.engine.UiUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -64,6 +71,7 @@ import javax.crypto.NoSuchPaddingException;
 public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabBroadcastListener ,GoogleApiClient.OnConnectionFailedListener{
     public static YLGameSDK YLGameSDK;
     public Activity activity;
+    public static Context mcon;
     public Handler handler;
     public String gameId;
     public String serverCode;
@@ -90,7 +98,7 @@ public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabB
 
     }
 
-    public static YLGameSDK getInstance() {
+    public static synchronized YLGameSDK getInstance() {
         if (YLGameSDK == null) {
             YLGameSDK = new YLGameSDK();
             return YLGameSDK;
@@ -98,9 +106,25 @@ public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabB
         return YLGameSDK;
     }
 
-    public void init(final Activity activity, Handler handler,
-                     final boolean testMode, String gameId,
-                     String channelId, String talkingDataId, ArrayList<String> productIds) {
+
+
+
+    public void init(final Activity activity, final Handler handler,
+                     final boolean testMode, final String gameId,
+                     final String channelId, final String talkingDataId, ArrayList<String> productIds) {
+        this.mcon = activity;
+        this.gameId = gameId;
+        this.channelId = channelId;
+        this.handler = handler;
+        RequestUrl.getUrl(testMode);
+        UiUtils.list.add(activity);
+        UserInfos.setUrl(testMode);
+        QYConstant.setTestMode(testMode);
+        QYSDKManager.getInstance().init(activity, handler, gameId, channelId,
+                talkingDataId, testMode, false);
+        TalkingData.getInstance().init(activity, talkingDataId, channelId);
+        initPayPhoneCardInfo();//
+
         sdkInit(activity, handler, testMode, gameId, channelId);
         mlhx_Skus = productIds;
         //默认可以进行后台遍历
@@ -119,7 +143,31 @@ public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabB
                     }
                 });
     }
-
+    /*
+         * 加载手机卡充值信息
+         */
+    private void initPayPhoneCardInfo() {
+        new Thread() {
+            @Override
+            public void run() {
+                for (int i = 0; i < 6; i++) {
+                    RequestService.Post2ServiceGetPayPhoneCard(handler, mcon,
+                            QYConstant.getInstance()
+                                    .getIp(mcon, "url19payinfo"));
+                    if (QYConstant.Name != null && QYConstant.Name.size() > 0
+                            && QYConstant.cardMoney != null
+                            && QYConstant.cardMoney.size() > 0) {
+                        break;
+                    }
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            };
+        }.start();
+    }
     private void initFacebookLogin() {
 
         callBackManager = CallbackManager.Factory.create();
@@ -634,4 +682,7 @@ public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabB
                 });
     }
 
+    public void qingyouLogin() {
+
+    }
 }

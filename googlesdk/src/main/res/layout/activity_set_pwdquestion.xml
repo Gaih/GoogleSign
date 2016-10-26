@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+      android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+    android:paddingTop="10dp"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <include layout="@layout/payhead" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="您的账号存在风险,建议设置密保问题。"
+            android:textColor="@color/orange"
+            android:textSize="22sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/kuangleft"
+                android:gravity="center"
+                android:text="问题一"
+                android:textColor="@color/textgreen"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/kuangright"
+                android:gravity="center_vertical"
+                android:paddingLeft="5dp" >
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <Spinner
+                        android:id="@+id/spinner_question1"
+                        android:layout_width="190dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/qy_pay_pull"
+                        android:paddingRight="15dp"
+                        android:textColor="@color/black"
+                        android:textSize="18.0sp" />
+
+                    <EditText
+                        android:id="@+id/et_question1"
+                        android:layout_alignLeft="@id/spinner_question1"
+                        android:layout_alignRight="@id/spinner_question1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:background="@null"
+                        android:layout_alignBottom="@id/spinner_question1"
+                        android:layout_alignTop="@id/spinner_question1"
+                        android:layout_centerVertical="true"
+                        android:visibility="gone" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <com.yilegame.yile.wight.AccountEditText
+            android:id="@+id/Aet_answer1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            app:hasarrow="false"
+            app:ispwd="false"
+            app:summary="答案" >
+        </com.yilegame.yile.wight.AccountEditText>
+
+       <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/kuangleft"
+                android:gravity="center"
+                android:text="问题二"
+                android:textColor="@color/textgreen"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/kuangright"
+                android:gravity="center_vertical"
+                android:paddingLeft="5dp" >
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <Spinner
+                        android:id="@+id/spinner_question2"
+                        android:layout_width="190dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/qy_pay_pull"
+                        android:paddingRight="15dp"
+                        android:textColor="@color/black"
+                        android:textSize="18.0sp" />
+
+                    <EditText
+                        android:id="@+id/et_question2"
+                        android:layout_width="200dp"
+                        android:layout_height="50dp"
+                        android:background="@null"
+                        android:layout_alignBottom="@id/spinner_question2"
+                        android:layout_alignTop="@id/spinner_question2"
+                        android:layout_centerVertical="true"
+                        android:visibility="gone" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <com.yilegame.yile.wight.AccountEditText
+            android:id="@+id/Aet_answer2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            app:hasarrow="false"
+            app:ispwd="false"
+            app:summary="答案" >
+        </com.yilegame.yile.wight.AccountEditText>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingRight="15dp" >
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <CheckBox
+                android:id="@+id/cb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="下次不再提示"
+                android:textColor="@color/textgreen" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2.5" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tv_sumbit"
+                style="@style/btn_style2"
+                android:background="@drawable/login_bg_green"
+                android:gravity="center"
+                android:text="提交"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tv_cancle"
+                 style="@style/btn_style2"
+                android:layout_marginLeft="40dp"
+                android:background="@drawable/login_bg_white"
+                android:gravity="center"
+                android:text="跳过"
+                android:textColor="@color/textgreen"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

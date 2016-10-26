@@ -1,0 +1,152 @@
+<resources>
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+	    <!-- 支付宝 -->
+    <style name="AlertDialog" parent="android:Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/popup_bg</item>
+    </style>
+    <!-- 支付宝 -->
+      <style name="pay_item">
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="qy_pay_text_name">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="qy_pay_title">
+        <item name="android:layout_marginBottom">7dp</item>
+        <item name="android:layout_marginTop">7dp</item>
+        <item name="android:textColor">#88000000</item>
+    </style>
+
+    <style name="qy_pay_head">
+        <item name="android:layout_marginLeft">9dp</item>
+        <item name="android:layout_marginTop">9dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="qy_pay_buttom">
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginLeft">7dp</item>
+        <item name="android:textColor">#99ffffff</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="qy_pay_image">
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <style name="qy_card_pay" parent="android:Widget.TextView">
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="btn_style2" parent="android:Widget.TextView">
+        <item name="android:layout_width">140dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+	   <style name="btn_style" parent="android:Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="qy_phonecard_text" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="qy_phonecard_item">
+        <item name="android:padding">7dp</item>
+        <item name="android:layout_height">50dp</item>
+    </style>
+
+    <style name="qy_btn_margintopnandleft" parent="android:Widget.TextView">
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:layout_marginTop">15dp</item>
+    </style>
+
+    <style name="qy_btn_margintopnandright" parent="android:Widget.TextView">
+        <item name="android:layout_marginRight">15dp</item>
+        <item name="android:layout_marginTop">15dp</item>
+    </style>
+
+    <style name="qy_rect_gracity">
+        <item name="android:layout_marginBottom">60dp</item>
+    </style>
+
+    <style name="CustomDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+    </style>
+
+<!--     <style name="DefineprogressBarStyleSmall" parent="android:style/Widget.ProgressBar">
+        <item name="android:indeterminateDrawable">@anim/qy_progress_roate</item>
+    </style>
+ -->    	<style name="ProgressBarBig">
+        <item name="android:indeterminateDrawable">@drawable/progress_big</item>
+        <item name="android:minWidth">48dip</item>
+        <item name="android:maxWidth">48dip</item>
+        <item name="android:minHeight">48dip</item>
+        <item name="android:maxHeight">48dip</item>
+        <item name="android:indeterminateOnly">true</item>
+        <item name="android:indeterminateBehavior">repeat</item>
+        <item name="android:indeterminateDuration">3500</item>
+    </style>
+ <style name="pay_type_tv1" parent="android:Widget.Holo.Light.TextView">
+  <item name="android:gravity">right</item>
+  <item name="android:textColor">@color/grey</item>
+  <item name="android:textSize">15sp</item>
+  <item name="android:layout_marginTop">10dp</item>
+ </style>
+ <style name="pay_type_tv2" parent="android:Widget.Holo.Light.TextView">
+  <item name="android:layout_marginLeft">5dp</item>
+  <item name="android:textColor">@color/grey</item>
+  <item name="android:textSize">13sp</item>
+ </style>
+  <style name="pay_type_tv22" parent="android:Widget.Holo.Light.TextView">
+  <item name="android:layout_marginLeft">5dp</item>
+  <item name="android:textColor">@color/grey</item>
+  <item name="android:textSize">11sp</item>
+ </style>
+ <style name="head_padding">
+  <item name="android:paddingLeft">15dp</item>
+  <item name="android:paddingRight">15dp</item>
+  <item name="android:paddingTop">10dp</item>
+ </style>
+ <style name="supporter_text" parent="android:Widget.Holo.Light.TextView">
+  <item name="android:layout_marginBottom">10dp</item>
+  <item name="android:layout_marginLeft">30dp</item>
+  <item name="android:textColor">@color/textgreen</item>
+  <item name="android:textSize">18dp</item>
+ </style>
+ <style name="payhistory_item" parent="android:Widget.Holo.Light.TextView">
+  <item name="android:gravity">center</item>
+  <item name="android:layout_centerInParent">true</item>
+  <item name="android:textColor">@color/grey</item>
+  <item name="android:textSize">14sp</item>
+ </style>
+</resources>

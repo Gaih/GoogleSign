@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<declare-styleable name="AccountItem">
+        <attr name="summary" format="string" />
+        <attr name="backg" format="reference" />
+    </declare-styleable>
+	 <declare-styleable name="AccountEditText">
+        <attr name="ispwd" format="boolean" />
+        <attr name="hasarrow" format="boolean" />
+        <attr name="isnum" format="boolean" />
+        <attr name="isEdite" format="boolean" />
+    </declare-styleable>
+</resources>

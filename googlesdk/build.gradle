@@ -30,6 +30,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.2.1'
     testCompile 'junit:junit:4.12'
     compile files('libs/yile_common3.jar')
+    compile files('libs/Game_Analytics_SDK_Android.jar')
+    compile files('libs/qingyou.jar')
     compile 'com.google.android.gms:play-services-auth:9.0.0'
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
 }

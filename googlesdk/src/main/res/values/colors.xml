@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="bg_window">#ffe5e5e5</color>
+    <color name="bg_page">#ffebebeb</color>
+    <color name="bg_tab_pressed">#6633b5e5</color>
+    <color name="bg_tab_pressed2">#ff3898ff</color> <!-- 蓝色 -->
+
+    <color name="txt_title">#ff333333</color>
+    <color name="txt_small">#ff7a7a7a</color>
+    <color name="txt_big">#ff717171</color>
+    <color name="item_divider">#ffd7d7d7</color>
+    <color name="detail_screen_bg">#adadad</color>
+    <color name="progress">#0294f0</color>
+    <color name="menu_bg_normal">#f0f1f3</color>
+    <color name="menu_bg_press">#cecece</color>
+    
+    <color name="bg_bottom_tx_default">#ffffff</color>
+    <color name="bg_bottom_tx_pressed">#59D229</color>
+    <color name="textyellow">#ecbd00</color>
+    
+	<color name="black">#000000</color>
+	<color name="white">#FFFFFF</color>
+	<color name="blue">#44CEF6</color>
+	<color name="red">#FF0000</color>
+    <color name="progress_green">#59D129</color>
+    <color name="present_title">#d11f1f</color>
+    <color name="textgrey">#a7a7a7</color><!-- 灰字 -->
+    <color name="textgreen">#6fad02</color><!-- 灰字 -->
+    <color name="orange">#E27032</color>
+	    <color name="orangepress">#E67636</color>
+    <color name="dark">#ff414142</color>
+    <color name="btn_shadow">#ffddff79</color>
+    <color name="light_blue">#6ebed5</color>
+    <color name="dialog_text">#ff646464</color>
+    <color name="bandwidth_red">#fff37878</color>
+    <color name="bandwidth_red_stroke">#ffa15a5a</color>
+    <color name="seekbar_bg">#dcdcdc</color>
+    <color name="seekbar_on">#3970d5</color>
+     <color name="transparent_background">#00000000</color>
+    <color name="bandwidth_green">#ffb8d1aa</color>
+    <color name="grey">#9ea5ae</color>
+    <color name="green">#1CC0DE</color>
+    <color name="purple">#998F10D3</color>
+	<!--支付宝  -->
+	<color name="TextColorBlack">#FF000000</color>
+    <color name="TextColorWhite">#FFFFFFFF</color>
+    <color name="TextColorGray">#FF505050</color>
+    <color name="ToastBgColor">#FF424242</color>
+    <color name="btnColor">#FFFFFF</color>
+    <color name="textColorforItemTitle">#FF666666</color>
+    <color name="secondbtntextColor">#FF496ea3</color>
+    <color name="textColorforCheckBox">#FF333333</color>
+    <color name="bgColor">#FFF2F2F2</color>
+    <color name="downLoadTextNomal">#FF3366CC</color>
+    <color name="downLoadTextPressed">#FFFFFFFF</color>
+    <color name="downLoadBackNomal">#FFFFFFFF</color>
+    <color name="downLoadBackFocus">#FF6698E7</color>
+    <color name="downLoadBackPressed">#FF3366CC</color>
+    <color name="dialog_tiltle_blue">#2277BB</color>
+	<!--支付宝  -->
+</resources>

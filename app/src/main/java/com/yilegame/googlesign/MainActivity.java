@@ -88,11 +88,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Handler handler=new BwHandler();
         YLGameSDK.getInstance().init(this, handler,true, "2101", "2","BB89193D948C8901FC615D92D630A982", arrayList);
 
-        mStatus = (TextView) findViewById(R.id.status);
         findViewById(R.id.googleSign).setOnClickListener(this);
         findViewById(R.id.googlePay).setOnClickListener(this);
         findViewById(R.id.googleDismiss).setOnClickListener(this);
         findViewById(R.id.googleExit).setOnClickListener(this);
+        findViewById(R.id.qingyou).setOnClickListener(this);
 //        LoginButton loginButton = (LoginButton) findViewById(R.id.facebook_sign);
 //        loginButton.setReadPermissions("email");
 
@@ -140,6 +140,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.googleDismiss:
                 YLGameSDK.getInstance().dismiss();
                 break;
+            case R.id.qingyou:
+                YLGameSDK.getInstance().qingyouLogin();
         }
     }
 
