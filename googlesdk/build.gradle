@@ -31,7 +31,9 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile files('libs/yile_common3.jar')
     compile files('libs/Game_Analytics_SDK_Android.jar')
-    compile files('libs/qingyou.jar')
+    compile files('libs/http.jar')
+    compile files('libs/yile.jar')
+
     compile 'com.google.android.gms:play-services-auth:9.0.0'
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
 }

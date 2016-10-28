@@ -4,20 +4,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
+import com.yilegame.yile.engine.OverSeasConductor;
 import com.yilegame.sdk.common.YLGameCode;
+import com.yilegame.yile.ui.BaseActivity;
 
 import java.util.ArrayList;
 
 import static com.yilegame.googlesdk.YLGameSDK.YLGameSDK;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     private class BwHandler extends Handler {
         @Override
@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private TextView mStatus;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +85,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         arrayList.add("lfantasy055000");
         arrayList.add("lfantasy110000");
         Handler handler=new BwHandler();
-        YLGameSDK.getInstance().init(this, handler,true, "2101", "2","BB89193D948C8901FC615D92D630A982", arrayList);
+//        YLGameSDK.getInstance().init(this, handler,true, "2101", "2","BB89193D948C8901FC615D92D630A982", arrayList);
+        OverSeasConductor.getInstance().init(this, handler, "199","29",  "62348D673CC9A0C61BCA8A051E212D83",this,false,true);
 
         findViewById(R.id.googleSign).setOnClickListener(this);
         findViewById(R.id.googlePay).setOnClickListener(this);
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        YLGameSDK.getInstance().onActivityResult(requestCode,resultCode,data);
+//        YLGameSDK.getInstance().onActivityResult(requestCode,resultCode,data);
     }
 
     public void doGameServer(String gameServer){
@@ -112,13 +112,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStart() {
         super.onStart();
-        YLGameSDK.getInstance().onStart();
+//        YLGameSDK.getInstance().onStart();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        YLGameSDK.getInstance().onDestroy();
+//        YLGameSDK.getInstance().onDestroy();
 
     }
 
@@ -141,20 +141,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 YLGameSDK.getInstance().dismiss();
                 break;
             case R.id.qingyou:
-                YLGameSDK.getInstance().qingyouLogin();
+                OverSeasConductor.getInstance().login();
+
+
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        YLGameSDK.getInstance().onResume(this);
+        OverSeasConductor.getInstance().OnResume(this);
+//        YLGameSDK.getInstance().onResume(this);
     }
-
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
     @Override
     protected void onPause() {
         super.onPause();
-        YLGameSDK.getInstance().onPause(this);
+//        YLGameSDK.getInstance().onPause(this);
     }
 }
 

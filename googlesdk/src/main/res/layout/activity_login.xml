@@ -106,7 +106,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:button="@drawable/qy_showpwd_checkbox"
-                    android:paddingLeft="3dp" 
+                    android:paddingLeft="3dp"
                     android:checked="true"/>
 
                 <TextView

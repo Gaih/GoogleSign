@@ -27,6 +27,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.yilegame.yile.engine.OverSeasConductor;
 import com.yilegame.googlesdk.util.HttpUtils;
 import com.yilegame.googlesdk.util.IabBroadcastReceiver;
 import com.yilegame.googlesdk.util.IabHelper;
@@ -35,9 +36,6 @@ import com.yilegame.googlesdk.util.Inventory;
 import com.yilegame.googlesdk.util.MD5;
 import com.yilegame.googlesdk.util.Purchase;
 import com.yilegame.googlesdk.util.PurchaseDao;
-import com.yilegame.http.constant.UserInfos;
-import com.yilegame.http.uti.RequestUrl;
-import com.yilegame.http.uti.TalkingData;
 import com.yilegame.sdk.common.BaseActivity;
 import com.yilegame.sdk.common.YLMessage;
 import com.yilegame.sdk.protocol.ChannelInitMethod;
@@ -46,9 +44,6 @@ import com.yilegame.sdk.utils.AES;
 import com.yilegame.sdk.utils.Base64;
 import com.yilegame.sdk.utils.HttpUtil;
 import com.yilegame.sdk.utils.LogUtil;
-import com.yilegame.yile.engine.QYSDKManager;
-import com.yilegame.yile.engine.RequestService;
-import com.yilegame.yile.engine.UiUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -70,8 +65,8 @@ import javax.crypto.NoSuchPaddingException;
  */
 public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabBroadcastListener ,GoogleApiClient.OnConnectionFailedListener{
     public static YLGameSDK YLGameSDK;
+    public static Context mCon;
     public Activity activity;
-    public static Context mcon;
     public Handler handler;
     public String gameId;
     public String serverCode;
@@ -98,7 +93,7 @@ public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabB
 
     }
 
-    public static synchronized YLGameSDK getInstance() {
+    public static YLGameSDK getInstance() {
         if (YLGameSDK == null) {
             YLGameSDK = new YLGameSDK();
             return YLGameSDK;
@@ -106,36 +101,24 @@ public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabB
         return YLGameSDK;
     }
 
-
-
-
     public void init(final Activity activity, final Handler handler,
                      final boolean testMode, final String gameId,
-                     final String channelId, final String talkingDataId, ArrayList<String> productIds) {
-        this.mcon = activity;
-        this.gameId = gameId;
-        this.channelId = channelId;
-        this.handler = handler;
-        RequestUrl.getUrl(testMode);
-        UiUtils.list.add(activity);
-        UserInfos.setUrl(testMode);
-        QYConstant.setTestMode(testMode);
-        QYSDKManager.getInstance().init(activity, handler, gameId, channelId,
-                talkingDataId, testMode, false);
-        TalkingData.getInstance().init(activity, talkingDataId, channelId);
-        initPayPhoneCardInfo();//
-
+                     String channelId, String talkingDataId, ArrayList<String> productIds) {
+        this.mCon = activity;
         sdkInit(activity, handler, testMode, gameId, channelId);
         mlhx_Skus = productIds;
         //默认可以进行后台遍历
         IsStartErgodic = true;
 //        initGooglePaySdk(testMode);
+
+        OverSeasConductor.getInstance().init(activity, handler, "199","29",  "62348D673CC9A0C61BCA8A051E212D83",activity,testMode, true);
         //谷歌初始化获得mGoogleApiClient
         super.init(activity, handler, testMode, gameId, channelId,
                 talkingDataId, new ChannelInitMethod() {
                     @Override
                     public void doChannelInit() {// 渠道初始化方法
                         doActivate();
+                        OverSeasConductor.getInstance().init(activity, handler, "199","29",  "62348D673CC9A0C61BCA8A051E212D83",activity,testMode, true);
                         //Google初始化
                         initGoogleLogin();
                         //Facebook初始化
@@ -143,31 +126,7 @@ public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabB
                     }
                 });
     }
-    /*
-         * 加载手机卡充值信息
-         */
-    private void initPayPhoneCardInfo() {
-        new Thread() {
-            @Override
-            public void run() {
-                for (int i = 0; i < 6; i++) {
-                    RequestService.Post2ServiceGetPayPhoneCard(handler, mcon,
-                            QYConstant.getInstance()
-                                    .getIp(mcon, "url19payinfo"));
-                    if (QYConstant.Name != null && QYConstant.Name.size() > 0
-                            && QYConstant.cardMoney != null
-                            && QYConstant.cardMoney.size() > 0) {
-                        break;
-                    }
-                    try {
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            };
-        }.start();
-    }
+
     private void initFacebookLogin() {
 
         callBackManager = CallbackManager.Factory.create();
@@ -645,6 +604,7 @@ public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabB
     }
     public  void onResume(Activity activity) {
         super.onResume(activity);
+        OverSeasConductor.getInstance().OnResume(activity);
     }
     public void onDestroy() {
         // very important:
@@ -682,7 +642,7 @@ public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabB
                 });
     }
 
-    public void qingyouLogin() {
-
+    public void qyLogin() {
+        OverSeasConductor.getInstance().login();
     }
 }
