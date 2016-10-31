@@ -23,8 +23,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="60dp" >
+            android:orientation="horizontal" >
 
             <LinearLayout
                 android:id="@+id/ll_login"
@@ -51,12 +50,18 @@
                 android:layout_height="0dp"
                 android:layout_weight="1" />
 
-            <TextView
+            <!-- <TextView
                 android:id="@+id/close"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/close_x" />
+                android:background="@drawable/close_x" /> -->
         </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="18dp"
+            android:background="@drawable/logo" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -84,75 +89,14 @@
                 app:hasarrow="false"
                 app:summary="密码" >
             </com.yilegame.yile.wight.AccountEditText>
-<com.yilegame.yile.wight.AccountEditText
-                android:id="@+id/phone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/att_pwd"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="12dp"
-                app:ispwd="false"
-                app:hasarrow="false"
-                app:summary="手机号" >
-            </com.yilegame.yile.wight.AccountEditText>
-             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-      
-                android:orientation="horizontal"
-                android:layout_alignRight="@+id/phone"
-                android:layout_alignLeft="@+id/phone"
-                android:layout_below="@+id/phone"
-                android:layout_marginBottom="12dp" 
-                android:id="@+id/signli">
 
-                <TextView
-                    android:id="@+id/tv_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/kuangleft"
-                    android:gravity="center"
-                    android:text="验证码"
-                    android:textColor="@color/textgreen"
-                    android:textSize="18sp" />
-
-                <LinearLayout
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/kuangright"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="5dp" >
-
-                    <EditText
-                        android:id="@+id/sign"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@null"
-                        android:inputType="number"
-                        android:maxLength="16"
-                        android:textColor="@color/black"
-                        android:textSize="20sp" />
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/getCode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="20dp"
-                    android:background="@drawable/button_selector_green"
-                    android:gravity="center"
-                    android:text="获取验证码"
-                    android:textColor="@color/TextColorWhite" />
-            </LinearLayout>
             <LinearLayout
                 android:id="@+id/ll_btn_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@id/att_pwd"
                 android:layout_alignRight="@id/att_pwd"
-                android:layout_below="@id/signli"
+                android:layout_below="@id/att_pwd"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -205,9 +149,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/show_pwd"
                     android:textColor="@color/textgreen"
-                    android:textSize="15sp"
-                    android:clickable="true"
-                    android:id="@+id/agreement"  />
+                    android:textSize="15sp" />
 
                 <View
                     android:layout_width="match_parent"

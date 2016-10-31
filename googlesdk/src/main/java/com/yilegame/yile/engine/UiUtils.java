@@ -1,7 +1,5 @@
 package com.yilegame.yile.engine;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
@@ -11,13 +9,13 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.yilegame.http.Mlog;
 import com.yilegame.http.Impl.UIThreadCallBack;
-import com.yilegame.yile.R;
-import com.yilegame.yile.engine.OverSeasConductor;
-import com.yilegame.yile.ui.Utils;
+import com.yilegame.http.Mlog;
 import com.yilegame.http.uti.EditTextShake;
 import com.yilegame.http.uti.NetworkUtils;
+import com.yilegame.yile.ui.Utils;
+
+import java.util.ArrayList;
 
 public class UiUtils {
 		public static boolean checkEditText(EditText et_username,EditText et_password){
@@ -54,7 +52,7 @@ public class UiUtils {
             return (int)(dipValue * scale + 0.5f); 
     } 
 		private static void showErrorView(String string) {
-			Toast.makeText(OverSeasConductor.mcon, string, 1).show();
+			Toast.makeText(OverSeasConductor.mcon, string,Toast.LENGTH_LONG).show();
 		}
 		public static void listViewParams(ListView lv,Context mcon,ArrayList<String> daoFirst) {
 //			if (daoFirst == null || daoFirst.size() < 1) {

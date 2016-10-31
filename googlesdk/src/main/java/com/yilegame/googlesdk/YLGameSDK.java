@@ -3,7 +3,6 @@ package com.yilegame.googlesdk;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Handler;
@@ -27,7 +26,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
-import com.yilegame.yile.engine.OverSeasConductor;
 import com.yilegame.googlesdk.util.HttpUtils;
 import com.yilegame.googlesdk.util.IabBroadcastReceiver;
 import com.yilegame.googlesdk.util.IabHelper;
@@ -65,7 +63,6 @@ import javax.crypto.NoSuchPaddingException;
  */
 public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabBroadcastListener ,GoogleApiClient.OnConnectionFailedListener{
     public static YLGameSDK YLGameSDK;
-    public static Context mCon;
     public Activity activity;
     public Handler handler;
     public String gameId;
@@ -101,24 +98,20 @@ public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabB
         return YLGameSDK;
     }
 
-    public void init(final Activity activity, final Handler handler,
-                     final boolean testMode, final String gameId,
+    public void init(final Activity activity, Handler handler,
+                     final boolean testMode, String gameId,
                      String channelId, String talkingDataId, ArrayList<String> productIds) {
-        this.mCon = activity;
         sdkInit(activity, handler, testMode, gameId, channelId);
         mlhx_Skus = productIds;
         //默认可以进行后台遍历
         IsStartErgodic = true;
 //        initGooglePaySdk(testMode);
-
-        OverSeasConductor.getInstance().init(activity, handler, "199","29",  "62348D673CC9A0C61BCA8A051E212D83",activity,testMode, true);
         //谷歌初始化获得mGoogleApiClient
         super.init(activity, handler, testMode, gameId, channelId,
                 talkingDataId, new ChannelInitMethod() {
                     @Override
                     public void doChannelInit() {// 渠道初始化方法
                         doActivate();
-                        OverSeasConductor.getInstance().init(activity, handler, "199","29",  "62348D673CC9A0C61BCA8A051E212D83",activity,testMode, true);
                         //Google初始化
                         initGoogleLogin();
                         //Facebook初始化
@@ -604,7 +597,6 @@ public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabB
     }
     public  void onResume(Activity activity) {
         super.onResume(activity);
-        OverSeasConductor.getInstance().OnResume(activity);
     }
     public void onDestroy() {
         // very important:
@@ -642,7 +634,4 @@ public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabB
                 });
     }
 
-    public void qyLogin() {
-        OverSeasConductor.getInstance().login();
-    }
 }
