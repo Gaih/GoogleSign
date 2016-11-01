@@ -166,11 +166,9 @@ public class HttpsConductor {
 				hideLoading();
 				break;
 			case REGISTER_RETURN:// 注册返回消息
-				Log.i("gaiugai", "注册返回消息");
 				Bundle bundle = new Bundle();
 				bundle.putString("msg", registerMessage.get("msg"));
 				int code2 = Integer.parseInt(registerMessage.get("code"));
-				Log.i("gaiugai", "注册返回消息"+code2);
 				Mlog.i("feng", registerMessage.toString());
 				if (code2 == QYCode.QYCODE_REGISTER_SUCCESS) {
 					try {
@@ -201,7 +199,6 @@ public class HttpsConductor {
 					message.setData(bundle);
 					OverSeasConductor.handler.sendMessage(message);
 				} else if (code2 == QYCode.QYCODE_LOGIN_ALREADY_EXIST) {
-					Log.i("gaigaigai", "cunzai");
 					Toast.makeText(mcon, "用户名已存在", Toast.LENGTH_SHORT).show();
 					message.what = QYCode.QYCODE_LOGIN_ALREADY_EXIST;
 					message.setData(bundle);

@@ -42,6 +42,7 @@ import com.yilegame.sdk.utils.AES;
 import com.yilegame.sdk.utils.Base64;
 import com.yilegame.sdk.utils.HttpUtil;
 import com.yilegame.sdk.utils.LogUtil;
+import com.yilegame.yile.engine.OverSeasConductor;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -102,6 +103,8 @@ public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabB
                      final boolean testMode, String gameId,
                      String channelId, String talkingDataId, ArrayList<String> productIds) {
         sdkInit(activity, handler, testMode, gameId, channelId);
+//        OverSeasConductor.getInstance().init(this, handler, "199","29",  "62348D673CC9A0C61BCA8A051E212D83",this,false, true);
+
         mlhx_Skus = productIds;
         //默认可以进行后台遍历
         IsStartErgodic = true;
@@ -118,6 +121,7 @@ public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabB
                         initFacebookLogin();
                     }
                 });
+
     }
 
     private void initFacebookLogin() {
@@ -634,4 +638,7 @@ public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabB
                 });
     }
 
+    public void login() {
+        OverSeasConductor.getInstance().login();
+    }
 }

@@ -1,7 +1,5 @@
 package com.yilegame.yile.engine;
 
-import java.util.Map;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +9,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.widget.Toast;
 
 import com.tendcloud.tenddata.TDGAAccount;
 import com.yilegame.http.Mlog;
@@ -19,6 +16,8 @@ import com.yilegame.http.QYCode;
 import com.yilegame.http.constant.QYConstant;
 import com.yilegame.http.constant.UserInfos;
 import com.yilegame.http.uti.TalkingData;
+
+import java.util.Map;
 
 public class QYSDKManager {
 
@@ -84,6 +83,30 @@ public class QYSDKManager {
 			}.start();
 	}
 
+//	/**
+//	 * 显示登入界面
+//	 * 
+//	 * @param
+//	 * @return
+//	 * */
+//	public void doLogin(Context con) {
+//		i = new Intent(con, DologinActivity.class);
+//		i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//		con.startActivity(i);
+//	}
+
+//	/**
+//	 * 登入
+//	 * 
+//	 * @param
+//	 * @return
+//	 * */
+//	public Map<String, String> Login(String name, String password,
+//			Context mcon, String url) {
+//		return RequestService.Post2Service(name, password, mcon, url, null,gameId,channelId);
+//	}
+
+		
 		/**
 		 *  扫尾工作
 		 *

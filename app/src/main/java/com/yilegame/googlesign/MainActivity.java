@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         arrayList.add("lfantasy055000");
         arrayList.add("lfantasy110000");
         Handler handler=new BwHandler();
-        YLGameSDK.getInstance().init(this, handler,true, "2101", "2","BB89193D948C8901FC615D92D630A982", arrayList);
+        YLGameSDK.getInstance().init(this, handler,false, "2101", "2","BB89193D948C8901FC615D92D630A982", arrayList);
         OverSeasConductor.getInstance().init(this, handler, "199","29",  "62348D673CC9A0C61BCA8A051E212D83",this,false, true);
 
         findViewById(R.id.googleSign).setOnClickListener(this);
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 YLGameSDK.getInstance().dismiss();
                 break;
             case R.id.qingyou:
-                OverSeasConductor.getInstance().login();
+                YLGameSDK.getInstance().login();
 
 
         }
