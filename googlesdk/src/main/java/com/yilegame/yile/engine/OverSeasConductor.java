@@ -1,34 +1,28 @@
 package com.yilegame.yile.engine;
 
-import java.util.HashMap;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 
-
-
-
-
-//import com.sharesdk.yilegame.ShowShare;
 import com.yilegame.http.constant.QYConstant;
 import com.yilegame.http.constant.UserInfos;
 import com.yilegame.http.uti.CheckPayResult;
 import com.yilegame.http.uti.RequestUrl;
 import com.yilegame.http.uti.TalkingData;
-
 import com.yilegame.yile.ui.BangActivity;
 import com.yilegame.yile.ui.BaseActivity;
 import com.yilegame.yile.ui.FindPassForPhoneActivity;
 import com.yilegame.yile.ui.LoginActivity;
 import com.yilegame.yile.ui.Utils;
+
+import java.util.HashMap;
+
+//import com.sharesdk.yilegame.ShowShare;
 
 /** 
 * xxxxxxxx 
@@ -99,7 +93,7 @@ public class OverSeasConductor extends BaseActivity{
 				talkingdataId, TestMode, islandscape);
 		TalkingData.getInstance().init(con, talkingdataId, channelId);
 		initPayPhoneCardInfo();// 加载手机卡充值信息
-		doActivation(con);
+//		doActivation(con);
 
 
 

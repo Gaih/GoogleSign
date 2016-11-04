@@ -12,7 +12,6 @@ import android.widget.Toast;
 import com.facebook.FacebookSdk;
 import com.yilegame.googlesdk.YLGameSDK;
 import com.yilegame.sdk.common.YLGameCode;
-import com.yilegame.yile.engine.OverSeasConductor;
 
 import java.util.ArrayList;
 
@@ -28,14 +27,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (code == YLGameCode.YLGAMECODE_REQUEST_OVERTIME) {
                 tip = "连接超时";
             } else if (code == YLGameCode.YLGAMECODE_ACTIVATE_SUCCESSFUL) {// 激活成功
-                tip = "m激活成功";
+                tip = "g激活成功";
             } else if (code == YLGameCode.YLGAMECODE_ACTIVATE_ERROR) {// 激活失败
-                tip = "m激活失败";
+                tip = "g激活失败";
             } else if (code == YLGameCode.YLGAMECODE_LOGIN_SUCCESSFUL) {// 登陆成功
                 String userid = b.getString("userid");
                 String account = b.getString("account");
                 String sign = b.getString("sign");
-                tip = "登陆成功;userid = " + userid + ";account:" + account+ "sign = " + sign;
+                tip = "g登陆成功;userid = " + userid + ";account:" + account+ "sign = " + sign;
             } else if (code == YLGameCode.YLGAMECODE_LOGIN_FAIL) {// 登陆失败*
                 // 调用游戏的nativeLoginFail
                 tip = "登录失败";
@@ -85,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         arrayList.add("lfantasy110000");
         Handler handler=new BwHandler();
         YLGameSDK.getInstance().init(this, handler,false, "2101", "2","BB89193D948C8901FC615D92D630A982", arrayList);
-        OverSeasConductor.getInstance().init(this, handler, "199","29",  "62348D673CC9A0C61BCA8A051E212D83",this,false, true);
+//        OverSeasConductor.getInstance().init(this, handler, "199","29",  "62348D673CC9A0C61BCA8A051E212D83",this,false, true);
 
         findViewById(R.id.googleSign).setOnClickListener(this);
         findViewById(R.id.googlePay).setOnClickListener(this);

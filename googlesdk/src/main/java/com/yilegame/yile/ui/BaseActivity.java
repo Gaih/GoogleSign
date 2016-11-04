@@ -2,10 +2,10 @@ package com.yilegame.yile.ui;
 
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,8 +24,8 @@ import com.yilegame.yile.wight.AccountEditText;
 import java.util.ArrayList;
 
 
-public class BaseActivity extends Activity implements OnClickListener{
-	protected Activity mCon;
+public class BaseActivity extends AppCompatActivity implements OnClickListener{
+	protected AppCompatActivity mCon;
 	protected String UIrequest = "";
 //	protected EditText et_account;
 //	protected TextView tv_account;

@@ -1,5 +1,33 @@
 package com.yilegame.yile.engine;
 
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.yilegame.http.Impl.DeviceCallBack;
+import com.yilegame.http.Impl.OrderIdCallBack;
+import com.yilegame.http.Impl.UIThreadCallBack;
+import com.yilegame.http.Mlog;
+import com.yilegame.http.QYCode;
+import com.yilegame.http.constant.QYConstant;
+import com.yilegame.http.constant.UserInfos;
+import com.yilegame.http.dao.AccountDao;
+import com.yilegame.http.uti.AES;
+import com.yilegame.http.uti.Base64;
+import com.yilegame.http.uti.NetworkUtils;
+import com.yilegame.http.uti.TalkingData;
+import com.yilegame.http.uti.YiLeHttpUtils;
+import com.yilegame.http.widget.MyProgressDialog;
+import com.yilegame.yile.ui.BangActivity;
+import com.yilegame.yile.ui.LoginActivity;
+import com.yilegame.yile.ui.RegisterActivity;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -13,36 +41,6 @@ import java.util.Map;
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
-
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.os.Bundle;
-import android.os.Environment;
-import android.os.Handler;
-import android.os.Message;
-import android.sax.StartElementListener;
-import android.util.Log;
-import android.widget.Toast;
-
-import com.yilegame.http.Mlog;
-import com.yilegame.http.QYCode;
-import com.yilegame.http.Impl.DeviceCallBack;
-import com.yilegame.http.Impl.OrderIdCallBack;
-import com.yilegame.http.Impl.UIThreadCallBack;
-import com.yilegame.http.constant.QYConstant;
-import com.yilegame.http.constant.UserInfos;
-import com.yilegame.http.dao.AccountDao;
-import com.yilegame.http.widget.MyProgressDialog;
-import com.yilegame.yile.ui.BangActivity;
-import com.yilegame.yile.ui.LoginActivity;
-import com.yilegame.yile.ui.RegisterActivity;
-import com.yilegame.yile.ui.SetPwdQuestionsActivity;
-import com.yilegame.http.uti.AES;
-import com.yilegame.http.uti.Base64;
-import com.yilegame.http.uti.NetworkUtils;
-import com.yilegame.http.uti.TalkingData;
-import com.yilegame.http.uti.YiLeHttpUtils;
 
 public class HttpsConductor {
 	protected static final int LOGIN_RETURN = 1;

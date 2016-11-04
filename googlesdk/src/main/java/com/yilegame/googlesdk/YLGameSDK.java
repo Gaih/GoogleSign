@@ -58,6 +58,7 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
 
+
 /**
  * Activity to demonstrate basic retrieval of the Google user's ID, email address, and basic
  * profile.
@@ -103,7 +104,7 @@ public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabB
                      final boolean testMode, String gameId,
                      String channelId, String talkingDataId, ArrayList<String> productIds) {
         sdkInit(activity, handler, testMode, gameId, channelId);
-//        OverSeasConductor.getInstance().init(this, handler, "199","29",  "62348D673CC9A0C61BCA8A051E212D83",this,false, true);
+        OverSeasConductor.getInstance().init(activity, handler, "199","29",  "62348D673CC9A0C61BCA8A051E212D83",this,false, true);
 
         mlhx_Skus = productIds;
         //默认可以进行后台遍历
