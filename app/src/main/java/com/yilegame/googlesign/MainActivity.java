@@ -14,6 +14,8 @@ import com.yilegame.googlesdk.YLGameSDK;
 import com.yilegame.sdk.common.YLGameCode;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -116,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        YLGameSDK.getInstance().onDestroy();
+        YLGameSDK.getInstance().onDestroy();
 
     }
 
@@ -130,7 +132,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
             case R.id.googlePay:
-
+                Map<String,String> map=new HashMap<String,String>();
+                map.put("productId","lfantasy002200");
+                YLGameSDK.getInstance().doCharge(1,""+1,""+1,"元宝",""+1,map);
                 break;
             case R.id.googleExit:
                 YLGameSDK.getInstance().logout();
@@ -150,6 +154,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onResume();
         YLGameSDK.getInstance().onResume(this);
     }
+
     @Override
     protected void onStop() {
         super.onStop();
@@ -159,5 +164,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onPause();
         YLGameSDK.getInstance().onPause(this);
     }
+
 }
 

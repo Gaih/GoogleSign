@@ -36,6 +36,7 @@ import com.yilegame.googlesdk.util.Purchase;
 import com.yilegame.googlesdk.util.PurchaseDao;
 import com.yilegame.sdk.common.BaseActivity;
 import com.yilegame.sdk.common.YLMessage;
+import com.yilegame.sdk.protocol.ChannelChargeMethod;
 import com.yilegame.sdk.protocol.ChannelInitMethod;
 import com.yilegame.sdk.protocol.YLGameCallback;
 import com.yilegame.sdk.utils.AES;
@@ -52,6 +53,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -109,7 +111,7 @@ public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabB
         mlhx_Skus = productIds;
         //默认可以进行后台遍历
         IsStartErgodic = true;
-//        initGooglePaySdk(testMode);
+        initGooglePaySdk(testMode);
         //谷歌初始化获得mGoogleApiClient
         super.init(activity, handler, testMode, gameId, channelId,
                 talkingDataId, new ChannelInitMethod() {
@@ -205,6 +207,42 @@ public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabB
         this.gameId = gameId;
         this.channelId = channelId;
     }
+
+    /**
+     *
+     * @param money
+     * @param serverCode
+     * @param extraData
+     * @param productName
+     * @param roleId
+     * @param channelParams
+     */
+    public void doCharge(final int money, final String serverCode, String extraData,
+                         final String productName, String roleId, final Map<String, String> channelParams) {
+        //TODO"20000001"
+        //int money, String moneyMark, String serverCode, String extraData, String productName, String payUrl, String userId, String sdkVersion, String roleId, ChannelChargeMethod channelChargeMethod
+        super.doCharge(money,serverCode,extraData,productName,QYConstant.payUrl,QYConstant.userId,
+                QYConstant.sdkVersion,roleId,new ChannelChargeMethod(){
+                    @Override
+                    public void doChannelCharge(String orderId) {
+                        doPay(channelParams,orderId);
+                    }
+                });
+    }
+
+    private void doPay(Map<String,String> channelParams,String orderId){
+        String SKU_GAS=channelParams.get("productId");
+        String payload =orderId;
+        LogUtil.i("   ","pay走了吗");
+
+        if(mHelper.mAsyncOperation.equals("launchPurchaseFlow")&&mHelper.mAsyncInProgress==true){
+            mHelper.flagEndAsync();
+            LogUtil.i("gaolingshi","取消线程");
+        }
+        LogUtil.i("gaolingshi","取消成功");
+        mHelper.launchPurchaseFlow(activity, SKU_GAS, RC_REQUEST,
+                mPurchaseFinishedListener, payload);
+    }
     private void initGooglePaySdk(boolean testMode){
 
         mHelper = new IabHelper(activity);
@@ -247,14 +285,14 @@ public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabB
             }
         });
     }
+
     private void handleSignInResult(GoogleSignInResult result) {
         Log.d(TAG, "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
 
-            // TODO: 2016/10/9 doPlatformLogin
-//            doPlatformLogin(null, acct.getIdToken(),null);
+            doPlatformLogin(null, acct.getIdToken(),null);
             Log.d(TAG,acct.getIdToken());
             Toast.makeText(activity,"登录成功:"+acct.getDisplayName(),Toast.LENGTH_SHORT).show();
 
@@ -576,7 +614,9 @@ public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabB
             }
         }.start();
     }
-
+    public  void doGameServer(String gameServer) {
+        super.doGameServer(gameServer);
+    }
     @Override
     public void receivedBroadcast() {
         mHelper.queryInventoryAsync(mGotInventoryListener);
