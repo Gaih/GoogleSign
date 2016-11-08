@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "889197089985",
-    "project_id": "project-1914361155549291678"
+    "project_number": "1043987211091",
+    "project_id": "project--7339122567297482518"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:889197089985:android:c0750e9915131a00",
+        "mobilesdk_app_id": "1:1043987211091:android:c0750e9915131a00",
         "android_client_info": {
           "package_name": "com.yilegame.googlesdk"
         }
       },
       "oauth_client": [
         {
-          "client_id": "889197089985-uhmqldt8opg1ack7rt6d5eddks42eeaf.apps.googleusercontent.com",
+          "client_id": "1043987211091-pb835vj7nud444p2qd7vmkpbqejc5tpl.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.yilegame.googlesign",
-            "certificate_hash": "A4DEE309D469D9F6118B8FC0A8B31063649A2168"
+            "certificate_hash": "A4718818EF316A55321D1A4AE777E7A6D2498313"
           }
         },
         {
-          "client_id": "889197089985-etmbntmdl8l6ce5tqgqlcgjp63e2am3r.apps.googleusercontent.com",
+          "client_id": "1043987211091-pprb2vs6pa01udeea73g1dq3lkuoh158.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC8OO97PiuQp0s59FJ5XefvDFyfNzbXsE4"
+          "current_key": "AIzaSyBIumoxvSWYdvDiwDTGbMHHe_hdqOpQEig"
         }
       ],
       "services": {
@@ -45,20 +45,28 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:889197089985:android:43a56ec9545ee95f",
+        "mobilesdk_app_id": "1:1043987211091:android:2c78584e836e74d5",
         "android_client_info": {
-          "package_name": "com.yilegame.google"
+          "package_name": "com.gaih.google_sign"
         }
       },
       "oauth_client": [
         {
-          "client_id": "889197089985-etmbntmdl8l6ce5tqgqlcgjp63e2am3r.apps.googleusercontent.com",
+          "client_id": "1043987211091-cf9j69qbbhcmdjh65lpgd1jo4ekfhdqf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gaih.google_sign",
+            "certificate_hash": "96F09A771ED502E235093190B259AF45E0C53B81"
+          }
+        },
+        {
+          "client_id": "1043987211091-pprb2vs6pa01udeea73g1dq3lkuoh158.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC8OO97PiuQp0s59FJ5XefvDFyfNzbXsE4"
+          "current_key": "AIzaSyBIumoxvSWYdvDiwDTGbMHHe_hdqOpQEig"
         }
       ],
       "services": {

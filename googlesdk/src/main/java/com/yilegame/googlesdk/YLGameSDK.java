@@ -36,7 +36,6 @@ import com.yilegame.googlesdk.util.Purchase;
 import com.yilegame.googlesdk.util.PurchaseDao;
 import com.yilegame.sdk.common.BaseActivity;
 import com.yilegame.sdk.common.YLMessage;
-import com.yilegame.sdk.protocol.ChannelChargeMethod;
 import com.yilegame.sdk.protocol.ChannelInitMethod;
 import com.yilegame.sdk.protocol.YLGameCallback;
 import com.yilegame.sdk.utils.AES;
@@ -208,83 +207,15 @@ public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabB
         this.channelId = channelId;
     }
 
-    /**
-     *
-     * @param money
-     * @param serverCode
-     * @param extraData
-     * @param productName
-     * @param roleId
-     * @param channelParams
-     */
-    public void doCharge(final int money, final String serverCode, String extraData,
-                         final String productName, String roleId, final Map<String, String> channelParams) {
-        //TODO"20000001"
-        //int money, String moneyMark, String serverCode, String extraData, String productName, String payUrl, String userId, String sdkVersion, String roleId, ChannelChargeMethod channelChargeMethod
-        super.doCharge(money,serverCode,extraData,productName,QYConstant.payUrl,QYConstant.userId,
-                QYConstant.sdkVersion,roleId,new ChannelChargeMethod(){
-                    @Override
-                    public void doChannelCharge(String orderId) {
-                        doPay(channelParams,orderId);
-                    }
-                });
-    }
-
-    private void doPay(Map<String,String> channelParams,String orderId){
-        String SKU_GAS=channelParams.get("productId");
-        String payload =orderId;
-        LogUtil.i("   ","pay走了吗");
-
-        if(mHelper.mAsyncOperation.equals("launchPurchaseFlow")&&mHelper.mAsyncInProgress==true){
-            mHelper.flagEndAsync();
-            LogUtil.i("gaolingshi","取消线程");
-        }
-        LogUtil.i("gaolingshi","取消成功");
-        mHelper.launchPurchaseFlow(activity, SKU_GAS, RC_REQUEST,
-                mPurchaseFinishedListener, payload);
-    }
-    private void initGooglePaySdk(boolean testMode){
-
-        mHelper = new IabHelper(activity);
-        // enable debug logging (for a production application, you should set this to false).
-        //开启 log日志形式
-
-        //TODO 是否打印google日志
-        mHelper.enableDebugLogging(testMode);
-
-        // Start setup. This is asynchronous and the specified listener
-        // will be called once setup completes.
-        Log.d(TAG, "Starting setup.");
-        mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
-            public void onIabSetupFinished(IabResult result) {
-                Log.d(TAG, "Setup finished.");
-
-                if (!result.isSuccess()) {
-                    // Oh noes, there was a problem.
-                    complain("Problem setting up in-app billing: " + result);
-                    return;
-                }
-
-                // Have we been disposed of in the meantime? If so, quit.
-                if (mHelper == null) return;
-
-                // Important: Dynamically register for broadcast messages about updated purchases.
-                // We register the receiver here instead of as a <receiver> in the Manifest
-                // because we always call getPurchases() at startup, so therefore we can ignore
-                // any broadcasts sent while the app isn't running.
-                // Note: registering this listener in an Activity is a bad idea, but is done here
-                // because this is a SAMPLE. Regardless, the receiver must be registered after
-                // IabHelper is setup, but before first call to getPurchases().
-                mBroadcastReceiver = new IabBroadcastReceiver(YLGameSDK.this);
-                IntentFilter broadcastFilter = new IntentFilter(IabBroadcastReceiver.ACTION);
-                activity.registerReceiver(mBroadcastReceiver, broadcastFilter);
-
-                // IAB is fully set up. Now, let's get an inventory of stuff we own.
-                Log.d(TAG, "Setup successful. Querying inventory.");
-                mHelper.queryInventoryAsync(mGotInventoryListener);
-            }
-        });
-    }
+//    /**
+//     *
+//     * @param money
+//     * @param serverCode
+//     * @param extraData
+//     * @param productName
+//     * @param roleId
+//     * @param channelParams
+//     */
 
     private void handleSignInResult(GoogleSignInResult result) {
         Log.d(TAG, "handleSignInResult:" + result.isSuccess());
@@ -360,7 +291,105 @@ public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabB
         }
     }
 
+    private void initGooglePaySdk(boolean testMode){
 
+        mHelper = new IabHelper(activity);
+        // enable debug logging (for a production application, you should set this to false).
+        //开启 log日志形式
+
+        //TODO 是否打印google日志
+        mHelper.enableDebugLogging(testMode);
+
+        // Start setup. This is asynchronous and the specified listener
+        // will be called once setup completes.
+        Log.d(TAG, "Starting setup.");
+        mHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
+            public void onIabSetupFinished(IabResult result) {
+                Log.d(TAG, "Setup finished.");
+
+                if (!result.isSuccess()) {
+                    // Oh noes, there was a problem.
+                    complain("Problem setting up in-app billing: " + result);
+                    return;
+                }
+
+                // Have we been disposed of in the meantime? If so, quit.
+                if (mHelper == null) return;
+
+                // Important: Dynamically register for broadcast messages about updated purchases.
+                // We register the receiver here instead of as a <receiver> in the Manifest
+                // because we always call getPurchases() at startup, so therefore we can ignore
+                // any broadcasts sent while the app isn't running.
+                // Note: registering this listener in an Activity is a bad idea, but is done here
+                // because this is a SAMPLE. Regardless, the receiver must be registered after
+                // IabHelper is setup, but before first call to getPurchases().
+                mBroadcastReceiver = new IabBroadcastReceiver(YLGameSDK.this);
+                IntentFilter broadcastFilter = new IntentFilter(IabBroadcastReceiver.ACTION);
+                activity.registerReceiver(mBroadcastReceiver, broadcastFilter);
+
+                // IAB is fully set up. Now, let's get an inventory of stuff we own.
+                Log.d(TAG, "Setup successful. Querying inventory.");
+                mHelper.queryInventoryAsync(mGotInventoryListener);
+            }
+        });
+    }
+    public void doCharge(final int money, final String serverCode, String extraData,
+                         final String productName, String roleId, final Map<String, String> channelParams) {
+        //TODO"20000001"
+        //int money, String moneyMark, String serverCode, String extraData, String productName, String payUrl, String userId, String sdkVersion, String roleId, ChannelChargeMethod channelChargeMethod
+//        super.doCharge(money,serverCode,extraData,productName,QYConstant.payUrl,QYConstant.userId,
+//                QYConstant.sdkVersion,roleId,new ChannelChargeMethod(){
+//                    @Override
+//                    public void doChannelCharge(String orderId) {
+//                        doPay(channelParams,orderId);
+//                    }
+//                });
+        doPay(channelParams,"订单号111111111");
+    }
+
+    private void doPay(Map<String,String> channelParams,String orderId){
+        String SKU_GAS=channelParams.get("productId");
+        String payload =orderId;
+        LogUtil.i("   ","pay走了吗");
+
+        if(mHelper.mAsyncOperation.equals("launchPurchaseFlow")&&mHelper.mAsyncInProgress==true){
+            mHelper.flagEndAsync();
+            LogUtil.i("gaolingshi","取消线程");
+        }
+        LogUtil.i("gaolingshi","取消成功");
+        mHelper.launchPurchaseFlow(activity, SKU_GAS, RC_REQUEST,
+                mPurchaseFinishedListener, payload);
+    }
+    IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
+        public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
+            Log.d(TAG, "Purchase finished: " + result + ", purchase: " + purchase);
+
+            // if we were disposed of in the meantime, quit.
+            if (mHelper == null) return;
+
+            if (result.isFailure()) {
+                complain("Error purchasing: " + result);
+                return;
+            }
+            LogUtil.i("gaolingshi", "purchase=====Signature:" + purchase.getSignature() + "       purchaseDate:" + purchase.getOriginalJson() + "");
+            Log.d(TAG, "Purchase successful.");
+
+            if (mlhx_Skus.contains(purchase.getSku())) {
+                // bought 1/4 tank of gas. So consume it.
+                Log.d(TAG, "Purchase is gas. Starting gas consumption.");
+                long saveRetrun = PurchaseDao.getInstatncePurchase(activity).savePurchase(purchase);
+                if (saveRetrun < 0) {
+                    LogUtil.i(TAG, "数据库保存失败");
+                }
+                mHelper.consumeAsync(purchase, mConsumeFinishedListener);
+            } else if (purchase.getSku().equals(SKU_PREMIUM)) {
+                // bought the premium upgrade!
+                Log.d(TAG, "Purchase is premium upgrade. Congratulating user.");
+                alert("Thank you for upgrading to premium!");
+                mIsPremium = true;
+            }
+        }
+    };
     IabHelper.OnConsumeFinishedListener FirstConsumeFinishedListener = new IabHelper.OnConsumeFinishedListener() {
         public void onConsumeFinished(Purchase purchase, IabResult result) {
             Log.d(TAG, "Consumption finished. Purchase: " + purchase + ", result: " + result);
@@ -425,112 +454,9 @@ public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabB
         }
     };
 
-    IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
 
-        @Override
-        public void onQueryInventoryFinished(IabResult result, Inventory inv) {
-            Log.d(TAG, "Query inventory finished");
-            if (mHelper == null) return;
 
-            if (result.isFailure()) {
-                complain("Failed to query inventory:" + result);
-                return;
-            }
-            Log.d(TAG, "Query inventory was successful");
 
-            // Do we have the premium upgrade? 检查是否要更新
-            Purchase premiumPurchase = inv.getPurchase(SKU_PREMIUM);
-            mIsPremium = (premiumPurchase != null);
-            Log.d(TAG, "User is " + (mIsPremium ? "PREMIUM" : "NOT PREMIUM"));
-            // 按照产品id遍历持有商品进行消耗
-            for (int i = 0; i < mlhx_Skus.size(); i++) {
-                //返回被给产品id的已经购买但是未消耗的商品
-                Purchase gasPurchase = inv.getPurchase(mlhx_Skus.get(i));
-                //检查被给被给物品信是否 没有消耗的 非定制产品  是就消耗它
-                if (gasPurchase != null) {
-                    IsStartErgodic = false;
-                    Log.d(TAG, "We have gas. Consuming it.");
-                    //先做本地保存 然后在做消耗
-                    long savereturn = PurchaseDao.getInstatncePurchase(activity).savePurchase(gasPurchase);
-                    if (savereturn < 0) {
-                        LogUtil.i(TAG, "初始话，数据库保存失败");
-                    }
-                    mHelper.consumeAsync(inv.getPurchase(mlhx_Skus.get(i)), FirstConsumeFinishedListener);
-                }
-            }
-            //没有重置产品，直接进入后台数据的遍历  遍历完成一个 数据库删除一个
-            if (IsStartErgodic) {
-                List<Purchase> Purchases = PurchaseDao.getInstatncePurchase(activity).getPurchase();
-                if (Purchases != null && Purchases.size() != 0) {
-                    for (int i = 0; i < Purchases.size(); i++) {
-                        // Map<String, Object> Params,String url, final Purchase purchase, final Activity activity
-                        try {
-                            JSONObject map = new JSONObject();
-                            map.put("signedData", Purchases.get(i).getOriginalJson());
-                            map.put("signature", Purchases.get(i).getSignature());
-                            map.put("sign", MD5.md5Encoder(Purchases.get(i).getOriginalJson() + Purchases.get(i).getSignature() + QYConstant.mybackkey));
-                            byte[] encodes = Base64.encode(AES.aesEncryptWithKey(HttpUtil.AESkey, map.toString().getBytes(), 0));
-                            final String body = new String(encodes, "utf-8");
-                            final Purchase getpuchase = Purchases.get(i);
-                            activity.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    DoBackVerify(body, QYConstant.googlepayUrl, getpuchase, activity);
-                                }
-                            });
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        } catch (NoSuchPaddingException e) {
-                            e.printStackTrace();
-                        } catch (UnsupportedEncodingException e) {
-                            e.printStackTrace();
-                        } catch (NoSuchAlgorithmException e) {
-                            e.printStackTrace();
-                        } catch (IllegalBlockSizeException e) {
-                            e.printStackTrace();
-                        } catch (BadPaddingException e) {
-                            e.printStackTrace();
-                        } catch (InvalidKeyException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-
-            }
-            Log.d(TAG, "Initial inventory query finished; enabling main UI.");
-        }
-    };
-
-    IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener = new IabHelper.OnIabPurchaseFinishedListener() {
-        public void onIabPurchaseFinished(IabResult result, Purchase purchase) {
-            Log.d(TAG, "Purchase finished: " + result + ", purchase: " + purchase);
-
-            // if we were disposed of in the meantime, quit.
-            if (mHelper == null) return;
-
-            if (result.isFailure()) {
-                complain("Error purchasing: " + result);
-                return;
-            }
-            LogUtil.i("gaolingshi", "purchase=====Signature:" + purchase.getSignature() + "       purchaseDate:" + purchase.getOriginalJson() + "");
-            Log.d(TAG, "Purchase successful.");
-
-            if (mlhx_Skus.contains(purchase.getSku())) {
-                // bought 1/4 tank of gas. So consume it.
-                Log.d(TAG, "Purchase is gas. Starting gas consumption.");
-                long saveRetrun = PurchaseDao.getInstatncePurchase(activity).savePurchase(purchase);
-                if (saveRetrun < 0) {
-                    LogUtil.i(TAG, "数据库保存失败");
-                }
-                mHelper.consumeAsync(purchase, mConsumeFinishedListener);
-            } else if (purchase.getSku().equals(SKU_PREMIUM)) {
-                // bought the premium upgrade!
-                Log.d(TAG, "Purchase is premium upgrade. Congratulating user.");
-                alert("Thank you for upgrading to premium!");
-                mIsPremium = true;
-            }
-        }
-    };
     IabHelper.OnConsumeFinishedListener mConsumeFinishedListener = new IabHelper.OnConsumeFinishedListener() {
         public void onConsumeFinished(Purchase purchase, IabResult result) {
             Log.d(TAG, "Consumption finished. Purchase: " + purchase + ", result: " + result);
@@ -614,19 +540,93 @@ public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabB
             }
         }.start();
     }
-    public  void doGameServer(String gameServer) {
-        super.doGameServer(gameServer);
-    }
+
     @Override
     public void receivedBroadcast() {
         mHelper.queryInventoryAsync(mGotInventoryListener);
     }
+    IabHelper.QueryInventoryFinishedListener mGotInventoryListener = new IabHelper.QueryInventoryFinishedListener() {
 
+        @Override
+        public void onQueryInventoryFinished(IabResult result, Inventory inv) {
+            Log.d(TAG, "Query inventory finished");
+            if (mHelper == null) return;
+
+            if (result.isFailure()) {
+                complain("Failed to query inventory:" + result);
+                return;
+            }
+            Log.d(TAG, "Query inventory was successful");
+
+            // Do we have the premium upgrade? 检查是否要更新
+            Purchase premiumPurchase = inv.getPurchase(SKU_PREMIUM);
+            mIsPremium = (premiumPurchase != null);
+            Log.d(TAG, "User is " + (mIsPremium ? "PREMIUM" : "NOT PREMIUM"));
+            // 按照产品id遍历持有商品进行消耗
+            for (int i = 0; i < mlhx_Skus.size(); i++) {
+                //返回被给产品id的已经购买但是未消耗的商品
+                Purchase gasPurchase = inv.getPurchase(mlhx_Skus.get(i));
+                //检查被给被给物品信是否 没有消耗的 非定制产品  是就消耗它
+                if (gasPurchase != null) {
+                    IsStartErgodic = false;
+                    Log.d(TAG, "We have gas. Consuming it.");
+                    //先做本地保存 然后在做消耗
+                    long savereturn = PurchaseDao.getInstatncePurchase(activity).savePurchase(gasPurchase);
+                    if (savereturn < 0) {
+                        LogUtil.i(TAG, "初始话，数据库保存失败");
+                    }
+                    mHelper.consumeAsync(inv.getPurchase(mlhx_Skus.get(i)), FirstConsumeFinishedListener);
+                }
+            }
+            //没有重置产品，直接进入后台数据的遍历  遍历完成一个 数据库删除一个
+            if (IsStartErgodic) {
+                List<Purchase> Purchases = PurchaseDao.getInstatncePurchase(activity).getPurchase();
+                if (Purchases != null && Purchases.size() != 0) {
+                    for (int i = 0; i < Purchases.size(); i++) {
+                        // Map<String, Object> Params,String url, final Purchase purchase, final Activity activity
+                        try {
+                            JSONObject map = new JSONObject();
+                            map.put("signedData", Purchases.get(i).getOriginalJson());
+                            map.put("signature", Purchases.get(i).getSignature());
+                            map.put("sign", MD5.md5Encoder(Purchases.get(i).getOriginalJson() + Purchases.get(i).getSignature() + QYConstant.mybackkey));
+                            byte[] encodes = Base64.encode(AES.aesEncryptWithKey(HttpUtil.AESkey, map.toString().getBytes(), 0));
+                            final String body = new String(encodes, "utf-8");
+                            final Purchase getpuchase = Purchases.get(i);
+                            activity.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    DoBackVerify(body, QYConstant.googlepayUrl, getpuchase, activity);
+                                }
+                            });
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (NoSuchPaddingException e) {
+                            e.printStackTrace();
+                        } catch (UnsupportedEncodingException e) {
+                            e.printStackTrace();
+                        } catch (NoSuchAlgorithmException e) {
+                            e.printStackTrace();
+                        } catch (IllegalBlockSizeException e) {
+                            e.printStackTrace();
+                        } catch (BadPaddingException e) {
+                            e.printStackTrace();
+                        } catch (InvalidKeyException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+            }
+            Log.d(TAG, "Initial inventory query finished; enabling main UI.");
+        }
+    };
     void complain(String message) {
         Log.e(TAG, "**** TrivialDrive Error: " + message);
         alert("Error: " + message);
     }
-
+    public  void doGameServer(String gameServer) {
+        super.doGameServer(gameServer);
+    }
     void alert(String message) {
         AlertDialog.Builder bld = new AlertDialog.Builder(activity);
         bld.setMessage(message);

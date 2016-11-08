@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 tip = "连接超时";
             } else if (code == YLGameCode.YLGAMECODE_ACTIVATE_SUCCESSFUL) {// 激活成功
                 tip = "g激活成功";
+                Log.d("gaigaigai","激活成功");
             } else if (code == YLGameCode.YLGAMECODE_ACTIVATE_ERROR) {// 激活失败
                 tip = "g激活失败";
             } else if (code == YLGameCode.YLGAMECODE_LOGIN_SUCCESSFUL) {// 登陆成功
