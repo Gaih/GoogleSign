@@ -105,8 +105,7 @@ public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabB
                      final boolean testMode, String gameId,
                      String channelId, String talkingDataId, ArrayList<String> productIds) {
         sdkInit(activity, handler, testMode, gameId, channelId);
-        OverSeasConductor.getInstance().init(activity, handler, "199","29",  "62348D673CC9A0C61BCA8A051E212D83",this,false, true);
-
+        OverSeasConductor.getInstance().init(activity, handler, "199","29",  "62348D673CC9A0C61BCA8A051E212D83",this,testMode, true);
         mlhx_Skus = productIds;
         //默认可以进行后台遍历
         IsStartErgodic = true;
@@ -223,7 +222,7 @@ public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabB
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
 
-            doPlatformLogin(null, acct.getIdToken(),null);
+//            doPlatformLogin(null, acct.getIdToken(),null);
             Log.d(TAG,acct.getIdToken());
             Toast.makeText(activity,"登录成功:"+acct.getDisplayName(),Toast.LENGTH_SHORT).show();
 
@@ -621,7 +620,6 @@ public class YLGameSDK extends BaseActivity implements IabBroadcastReceiver.IabB
         }
     };
     void complain(String message) {
-        Log.e(TAG, "**** TrivialDrive Error: " + message);
         alert("Error: " + message);
     }
     public  void doGameServer(String gameServer) {

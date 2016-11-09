@@ -22,7 +22,7 @@ public class QYConstant {
 	public static String sign = "";
 
 
-	private static final String TEST_URL = "http://47.88.198.17:10075";
+	private static final String TEST_URL = "http://47.88.189.17:10075";
 	private static final String PUBLISH_URL = "http://lfserver.gurumcompany.com";
 
 	////服务器的测试模式，true测试ip，false外网的ip

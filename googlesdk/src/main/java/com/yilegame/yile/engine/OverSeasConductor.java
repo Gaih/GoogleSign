@@ -93,7 +93,7 @@ public class OverSeasConductor extends BaseActivity{
 				talkingdataId, TestMode, islandscape);
 		TalkingData.getInstance().init(con, talkingdataId, channelId);
 		initPayPhoneCardInfo();// 加载手机卡充值信息
-		doActivation(con);
+//		doActivation(con);
 
 
 
